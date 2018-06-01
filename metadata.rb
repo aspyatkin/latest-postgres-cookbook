@@ -2,7 +2,7 @@ name 'latest-postgres'
 maintainer 'Alexander Pyatkin'
 maintainer_email 'aspyatkin@gmail.com'
 license 'MIT'
-version '0.2.0'
+version '0.3.0'
 description 'Installs and configures Postgres'
 
 recipe 'latest-postgres::default', 'Installs and configures Postgres'
