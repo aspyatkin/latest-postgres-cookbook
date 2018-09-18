@@ -18,7 +18,11 @@ node.default['postgresql']['contrib']['extensions'] = extension_list
 require 'digest/md5'
 
 postgres_root_username = 'postgres'
-postgres_pwd_digest = ::Digest::MD5.hexdigest("#{secret.get('postgres:password:' + postgres_root_username)}#{postgres_root_username}")
+postgres_root_pwd = secret.get(
+  'postgres:password:' + postgres_root_username,
+  prefix_fqdn: node[id]['secret']['prefix_fqdn'].nil? ? node['secret']['prefix_fqdn'] : node[id]['secret']['prefix_fqdn']
+)
+postgres_pwd_digest = ::Digest::MD5.hexdigest("#{postgres_root_pwd}#{postgres_root_username}")
 node.default['postgresql']['password'][postgres_root_username] = \
   "md5#{postgres_pwd_digest}"
 
